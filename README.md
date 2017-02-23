@@ -4,7 +4,7 @@
 ## Installation
 You can either just download the source from git or from the npm repository as the `establishment-nodews-meta` [npm package][npm-url]:
 ```
-npm install --save-dev establishment-nodews-meta
+npm install -g establishment-nodews-meta
 ```
 
 ## License
