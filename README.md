@@ -1,4 +1,4 @@
-# Establishment Node Service Core
+# Establishment Node Websocket Server Metadata Service
 [![npm package][npm-badge]][npm-url]
 
 ## Installation
