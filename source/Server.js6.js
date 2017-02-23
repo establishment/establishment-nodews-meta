@@ -2,7 +2,7 @@ const fs = require("fs");
 const path = require("path");
 
 const {GCScheduler}= require("establishment-node-core");
-const {Glue, RPCServer} = require("establishment-node-service-core");
+const {Glue, RPCServer, ServiceUtil} = require("establishment-node-service-core");
 
 const MetadataServer = require("./MetadataServer.js6.js");
 const DefaultConfig = require("./DefaultConfig.js6.js");
@@ -23,6 +23,8 @@ module.exports.run = (params) => {
     Glue.initLogger(config.logging);
     Glue.initRegistryKeeper(config.registryKeeper);
     Glue.initService(config.service);
+    ServiceUtil.setMockMachineId(config.machineId.mockId);
+    ServiceUtil.setMachineIdScript(config.machineId.script);
 
     GCScheduler.configure(config.gc);
     GCScheduler.setLogger(Glue.logger);
