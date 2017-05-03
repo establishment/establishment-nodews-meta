@@ -90,7 +90,7 @@
             "address": null,
             "prefix": "meta-registry-nodews-",
             "stream": "meta-registry-stream",
-            "keepTrack": ["enable-stream-events", "enable-full-stream-update"]
+            "keepTrack": ["enable-stream-events"]
         }
     },
     "rpcServer": {

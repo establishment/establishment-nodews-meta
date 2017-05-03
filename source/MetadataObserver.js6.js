@@ -165,8 +165,6 @@ class MetadataObserver {
                 this.guestConnectionCounter = reply;
             });
         }
-
-        this.sendUpdateRequest();
     }
 
     userConnectionSubscribe(connectionId, userId, stream) {
@@ -180,8 +178,6 @@ class MetadataObserver {
                 this.userJoinedStreamEvent(userId, stream);
             }
         });
-
-        this.sendUpdateRequest();
     }
 
     userConnectionDestroyEvent(connectionId, userId) {
@@ -234,8 +230,6 @@ class MetadataObserver {
                     });
                 }
             }
-
-            this.sendUpdateRequest();
         });
 
         // delete connectionId to userId
@@ -256,8 +250,6 @@ class MetadataObserver {
                     }
                 });
             }
-
-            this.sendUpdateRequest();
         });
 
         this.redisConnection.del(this.connectionIdToDataPrefix + connectionId);
@@ -303,15 +295,6 @@ class MetadataObserver {
         this.redisConnection.del(this.userIdToStreamsPrefix + userId);
     }
 
-    sendUpdateRequest() {
-        if (Glue.registryKeeper.get("enable-full-stream-update") == "true") {
-            let request = {
-                "command": "fullUpdate"
-            };
-            this.redisConnection.publish(this.streamEventsStream, JSON.stringify(request));
-        }
-    }
-
     sendLeftStreamEvent(userId, stream) {
         if (Glue.registryKeeper.get("enable-stream-events") == "true") {
             let request = {
@@ -352,7 +335,6 @@ class MetadataObserver {
             userJoinedStreamEvent: function(){},
             streamNoLongerUsedEvent: function() {},
             userNoLongerConnectedEvent: function(){},
-            sendUpdateRequest: function(){},
             sendLeftStreamEvent: function(){},
             sendJoinedStreamEvent: function(){},
 
