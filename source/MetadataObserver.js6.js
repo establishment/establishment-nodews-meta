@@ -228,6 +228,8 @@ class MetadataObserver {
                             this.userLeftStreamEvent(userId, stream);
                         }
                     });
+                } else {
+                    Glue.logger.critical("Establishment::MetadataObserver: tried to clear unidentified websocket connection from stream #" + stream + ". This should never happen!");
                 }
             }
         });
@@ -256,11 +258,6 @@ class MetadataObserver {
     }
 
     userLeftStreamEvent(userId, stream) {
-        // We don't care about guests meta-data, yet (deleting this will have implication in UI)
-        if (userId == 0) {
-            return;
-        }
-
         Glue.logger.info("Establishment::MetadataObserver: user " + userId + " left #" + stream);
 
         this.redisConnection.srem(this.streamToUserIdsPrefix + stream, userId);
@@ -270,11 +267,6 @@ class MetadataObserver {
     }
 
     userJoinedStreamEvent(userId, stream) {
-        // We don't care about guests meta-data, yet (deleting this will have implication in UI)
-        if (userId == 0) {
-            return;
-        }
-
         Glue.logger.info("Establishment::MetadataObserver: user " + userId + " joined #" + stream);
 
         this.redisConnection.sadd(this.streamToUserIdsPrefix + stream, userId);
