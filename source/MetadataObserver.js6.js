@@ -1,4 +1,4 @@
-const {RedisConnectionPool} = require("establishment-node-core");
+const {RedisConnectionPool, RedisQueue} = require("establishment-node-core");
 const {Glue} = require("establishment-node-service-core");
 
 class MetadataObserver {
@@ -18,7 +18,7 @@ class MetadataObserver {
         this.streamToUserIdConnectionCounterPrefix = config.redis.prefix.streamToUserIdConnectionCounter;
         this.connectionIdToDataPrefix = config.redis.prefix.connectionIdToData;
 
-        this.streamEventsStream = config.redis.stream.streamEvents;
+        this.streamEventsQueue = new RedisQueue(config.redis.streamEvents.queueName, config.redis.address);
 
         this.guestConnectionsKey = config.redis.key.guestConnections;
 
@@ -295,7 +295,7 @@ class MetadataObserver {
                 "userId": userId.toString(),
                 "stream": stream
             };
-            this.redisConnection.publish(this.streamEventsStream, JSON.stringify(request));
+            this.streamEventsQueue.push(request);
         }
     }
 
@@ -307,7 +307,7 @@ class MetadataObserver {
                 "userId": userId.toString(),
                 "stream": stream
             };
-            this.redisConnection.publish(this.streamEventsStream, JSON.stringify(request));
+            this.streamEventsQueue.push(request);
         }
     }
 
