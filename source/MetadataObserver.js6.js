@@ -258,7 +258,7 @@ class MetadataObserver {
     }
 
     userLeftStreamEvent(userId, stream) {
-        Glue.logger.info("Establishment::MetadataObserver: user " + userId + " left #" + stream);
+        // Glue.logger.info("Establishment::MetadataObserver: user " + userId + " left #" + stream);
 
         this.redisConnection.srem(this.streamToUserIdsPrefix + stream, userId);
         this.redisConnection.srem(this.userIdToStreamsPrefix + userId, stream);
@@ -267,7 +267,7 @@ class MetadataObserver {
     }
 
     userJoinedStreamEvent(userId, stream) {
-        Glue.logger.info("Establishment::MetadataObserver: user " + userId + " joined #" + stream);
+        // Glue.logger.info("Establishment::MetadataObserver: user " + userId + " joined #" + stream);
 
         this.redisConnection.sadd(this.streamToUserIdsPrefix + stream, userId);
         this.redisConnection.sadd(this.userIdToStreamsPrefix + userId, stream);
