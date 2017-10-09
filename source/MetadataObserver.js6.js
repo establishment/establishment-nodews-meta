@@ -134,13 +134,11 @@ class MetadataObserver {
             return;
         }
         if (value == null) {
-            Glue.logger.warning("Establishment::MetadataObserver: userConnectionAddField value for field '" + name +
-                                "' is null!");
+            // Glue.logger.warning("Establishment::MetadataObserver: userConnectionAddField value for field '" + name + "' is null!");
             return;
         }
         if (value == null) {
-            Glue.logger.warning("Establishment::MetadataObserver: userConnectionAddField value for field '" + name +
-                                "' is undefined!");
+            // Glue.logger.warning("Establishment::MetadataObserver: userConnectionAddField value for field '" + name + "' is undefined!");
             return;
         }
         this.redisConnection.hset(this.connectionIdToDataPrefix + connectionId, name, value, (error, reply) => {
